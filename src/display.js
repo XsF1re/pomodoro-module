@@ -2,11 +2,44 @@ const Display = () => {
     const updateMode = (button) => {
         let buttonList = document.getElementById('mode').querySelectorAll('input[type=button]');
             for (let i = 0; i < buttonList.length; i++) {
-                let hasClassClickedMenu = buttonList[i].classList.contains('clicked_menu');
+                let hasClassClickedMenu = buttonList[i].classList.contains('clickedBtn');
                 if (hasClassClickedMenu)
-                    buttonList[i].classList.remove('clicked_menu');
+                    buttonList[i].classList.remove('clickedBtn');
             }
-        button.classList.add('clicked_menu');
+        button.classList.add('clickedBtn');
+    }
+
+    const updateBtnToPomodoroMode = (button) => {
+        button.classList.remove('clickedBtn');
+        let buttonList = document.getElementById('mode').querySelectorAll('input[type=button]');
+        for (let i = 0; i < buttonList.length; i++) {
+            if(buttonList[i].name === 'pomodoroMode') {
+                buttonList[i].classList.add('clickedBtn');
+                break;
+            }
+        }
+    }
+
+    const updateBtnToShortMode = (button) => {
+        button.classList.remove('clickedBtn');
+        let buttonList = document.getElementById('mode').querySelectorAll('input[type=button]');
+        for (let i = 0; i < buttonList.length; i++) {
+            if(buttonList[i].name === 'shortMode') {
+                buttonList[i].classList.add('clickedBtn');
+                break;
+            }
+        }
+    }
+
+    const updateBtnToLongMode = (button) => {
+        button.classList.remove('clickedBtn');
+        let buttonList = document.getElementById('mode').querySelectorAll('input[type=button]');
+        for (let i = 0; i < buttonList.length; i++) {
+            if(buttonList[i].name === 'longMode') {
+                buttonList[i].classList.add('clickedBtn');
+                break;
+            }
+        }
     }
 
     const updateTimer = (button) => {
@@ -18,6 +51,9 @@ const Display = () => {
 
     return {
         updateMode,
+        updateBtnToPomodoroMode,
+        updateBtnToShortMode,
+        updateBtnToLongMode,
         updateTimer
     }
 }

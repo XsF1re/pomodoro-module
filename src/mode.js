@@ -12,6 +12,16 @@ const Mode = () => {
             button.addEventListener('click', () => {
                 display.updateMode(button);
                 timer.setTime(button.name);
+
+                timer.initPomodoroCnt();
+
+                if(timer.isRunningTimer()) {
+                    timer.stopTimer();
+                    display.updateTimer(timer.btnTimerState());
+
+                    if(button.name !== 'pomodoroMode')
+                        timer.setSingleTimer(true);
+                }
             })
         })
     }
