@@ -13,15 +13,15 @@ const Mode = () => {
                 display.updateMode(button);
                 timer.setTime(button.name);
 
-                timer.initPomodoroCnt();
+                timer.initPomodoroRunCnt();
 
                 if(timer.isRunningTimer()) {
                     timer.stopTimer();
                     display.updateTimer(timer.btnTimerState());
-
-                    if(button.name !== 'pomodoroMode')
-                        timer.setSingleTimer(true);
                 }
+
+                if(button.name !== 'pomodoroMode')
+                    timer.setSingleTimer(true);
             })
         })
     }

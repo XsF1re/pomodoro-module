@@ -7,13 +7,17 @@ const Timer = () => {
     let sec;
     let timerId;
     let runningTimer = 0;
-    let pomodoroCnt = 0;
+    let pomodoroRunCnt = 0;
     let taskCompleteCnt = 0;
     let singleTimer = false;
 
     //Preference Value
-    let shouldAutoStartNextRound = true;
+    let autoStartNextRound = true;
     let longBreakInterval = 2;
+
+    const debugStatus = () => {
+        console.log("autoStartNextRound: " + autoStartNextRound + ", longBreakInterval: " + longBreakInterval);
+    }
 
     const isRunningTimer = () => {
         return runningTimer;
@@ -23,8 +27,12 @@ const Timer = () => {
         singleTimer = state;
     }
 
-    const initPomodoroCnt = () => {
-        pomodoroCnt = 0;
+    const isSingleTimer = () => {
+        return singleTimer;
+    }
+
+    const initPomodoroRunCnt = () => {
+        pomodoroRunCnt = 0;
     }
 
     const setTime = (modeState) => {
@@ -77,6 +85,7 @@ const Timer = () => {
         let btn = document.getElementById('time').querySelectorAll('input[type=button]');
         btn.forEach((button) => {
             button.addEventListener('click', () => {
+                debugStatus();
                 display.updateTimer(button);
                 Timer(button.value);
             })
@@ -91,7 +100,6 @@ const Timer = () => {
     }
 
     const nextTimer = () => {
-        console.log(mode);
         if (singleTimer) {
             // Pomodoro Mode Start
             mode = 'pomodoroMode';
@@ -104,16 +112,17 @@ const Timer = () => {
         }
 
         if (mode === 'pomodoroMode') {
-            pomodoroCnt++;
-            if (pomodoroCnt === longBreakInterval) {
+            pomodoroRunCnt++;
+            if (pomodoroRunCnt === longBreakInterval) {
                 // Increase Task Count
                 taskCompleteCnt++;
+                console.log("taskCompleteCnt: " + taskCompleteCnt);
 
                 // Long Break Start
                 mode = 'longMode';
                 setTimeForLongMode();
                 display.updateBtnToLongMode(btnModeState());
-            } else if (pomodoroCnt < longBreakInterval) {
+            } else if (pomodoroRunCnt < longBreakInterval) {
                 // Short Break Start
                 mode = 'shortMode';
                 setTimeForShortMode();
@@ -130,16 +139,14 @@ const Timer = () => {
             setTimeForPomodoroMode();
             display.updateBtnToPomodoroMode(btnModeState());
 
-            //Initialize pomodoroCnt
-            pomodoroCnt = 0;
+            //Initialize pomodoroRunCnt
+            pomodoroRunCnt = 0;
         }
 
-        if(!shouldAutoStartNextRound) {
+        if(!autoStartNextRound) {
             stopTimer();
             display.updateTimer(btnTimerState());
         }
-
-        console.log("pomodoroCnt: " + pomodoroCnt + " taskCompleteCnt: " + taskCompleteCnt);
     }
 
     const btnModeState = () => {
@@ -156,7 +163,6 @@ const Timer = () => {
     }
 
     const startTimer = () => {
-        console.log("Start Timer!");
         runningTimer = true;
         sec--;
         if (sec === -1) {
@@ -164,10 +170,8 @@ const Timer = () => {
             sec = 59;
         }
         if (min === 0 && sec === 0) {
-            console.log("Finished!!!");
             playEndSound();
             nextTimer();
-            // clearInterval(timerId);
         }
         if (min === -1) {
             min = 0;
@@ -178,7 +182,6 @@ const Timer = () => {
     }
 
     const stopTimer = () => {
-        console.log("Stop Timer!");
         runningTimer = false;
         clearInterval(timerId);
     }
@@ -191,7 +194,8 @@ const Timer = () => {
 
     return {
         setSingleTimer,
-        initPomodoroCnt,
+        isSingleTimer,
+        initPomodoroRunCnt,
         isRunningTimer,
         btnTimerState,
         setTime,
