@@ -6,7 +6,7 @@ const Timer = () => {
     let min;
     let sec;
     let timerId;
-    let runningTimer = 0;
+    let runningTimer = false;
     let pomodoroRunCnt = 0;
     let taskCompleteCnt = 0;
     let singleTimer = false;
