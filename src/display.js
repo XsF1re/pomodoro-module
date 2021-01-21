@@ -1,6 +1,6 @@
 const Display = () => {
     const updateMode = (button) => {
-        let buttonList = document.getElementById('mode').querySelectorAll('input[type=button]');
+        const buttonList = document.getElementById('mode').querySelectorAll('input[type=button]');
             for (let i = 0; i < buttonList.length; i++) {
                 let hasClassClickedMenu = buttonList[i].classList.contains('clickedBtn');
                 if (hasClassClickedMenu)
@@ -11,7 +11,7 @@ const Display = () => {
 
     const updateBtnToPomodoroMode = (button) => {
         button.classList.remove('clickedBtn');
-        let buttonList = document.getElementById('mode').querySelectorAll('input[type=button]');
+        const buttonList = document.getElementById('mode').querySelectorAll('input[type=button]');
         for (let i = 0; i < buttonList.length; i++) {
             if(buttonList[i].name === 'pomodoroMode') {
                 buttonList[i].classList.add('clickedBtn');
@@ -22,7 +22,7 @@ const Display = () => {
 
     const updateBtnToShortMode = (button) => {
         button.classList.remove('clickedBtn');
-        let buttonList = document.getElementById('mode').querySelectorAll('input[type=button]');
+        const buttonList = document.getElementById('mode').querySelectorAll('input[type=button]');
         for (let i = 0; i < buttonList.length; i++) {
             if(buttonList[i].name === 'shortMode') {
                 buttonList[i].classList.add('clickedBtn');
@@ -33,7 +33,7 @@ const Display = () => {
 
     const updateBtnToLongMode = (button) => {
         button.classList.remove('clickedBtn');
-        let buttonList = document.getElementById('mode').querySelectorAll('input[type=button]');
+        const buttonList = document.getElementById('mode').querySelectorAll('input[type=button]');
         for (let i = 0; i < buttonList.length; i++) {
             if(buttonList[i].name === 'longMode') {
                 buttonList[i].classList.add('clickedBtn');

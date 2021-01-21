@@ -1,5 +1,5 @@
 import { display } from './display.js';
-import endSound from './sounds/TimoLaughSound.mp3';
+import endSound from './sounds/alertSound.mp3';
 
 const Timer = () => {
     let mode;
@@ -12,8 +12,8 @@ const Timer = () => {
     let singleTimer = false;
 
     //Preference Value
-    let autoStartNextRound = true;
-    let longBreakInterval = 2;
+    const autoStartNextRound = true;
+    const longBreakInterval = 2;
 
     const debugStatus = () => {
         console.log("autoStartNextRound: " + autoStartNextRound + ", longBreakInterval: " + longBreakInterval);
@@ -77,12 +77,12 @@ const Timer = () => {
     }
 
     const applyTime = () => {
-        let timeString = numFormat(min) + ' : ' + numFormat(sec);
+        const timeString = numFormat(min) + ' : ' + numFormat(sec);
         document.getElementById('time').querySelector('h1').innerText = timeString;
     }
 
     const waitForTimer = () => {
-        let btn = document.getElementById('time').querySelectorAll('input[type=button]');
+        const btn = document.getElementById('time').querySelectorAll('input[type=button]');
         btn.forEach((button) => {
             button.addEventListener('click', () => {
                 debugStatus();
@@ -150,7 +150,7 @@ const Timer = () => {
     }
 
     const btnModeState = () => {
-        let buttonList = document.getElementById('mode').querySelectorAll('input[type=button]');
+        const buttonList = document.getElementById('mode').querySelectorAll('input[type=button]');
             for (let i = 0; i < buttonList.length; i++) {
                 let hasClassClickedMenu = buttonList[i].classList.contains('clickedBtn');
                 if (hasClassClickedMenu)
@@ -187,7 +187,7 @@ const Timer = () => {
     }
 
     const playEndSound = () => {
-        let sound = new Audio(endSound);
+        const sound = new Audio(endSound);
         sound.volume = 1.0;
         sound.play();
     }
