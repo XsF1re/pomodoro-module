@@ -7,7 +7,7 @@ const Mode = () => {
     }
 
     const waitForMode = () => {
-        let btn = document.getElementById('mode').querySelectorAll('input[type=button]');
+        const btn = document.getElementById('mode').querySelectorAll('input[type=button]');
         btn.forEach((button) => {
             button.addEventListener('click', () => {
                 display.updateMode(button);

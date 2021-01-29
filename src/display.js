@@ -43,10 +43,14 @@ const Display = () => {
     }
 
     const updateTimer = (button) => {
-        if(button.value === "start")
-            button.value = 'stop';
-        else if(button.value === 'stop')
-            button.value = 'start';
+        if(button.value === "START") {
+            button.style.boxShadow = 'none';
+            button.value = 'STOP';
+        }
+        else if(button.value === 'STOP') {
+            button.style.boxShadow = 'rgb(235 235 235) 0px 6px 0px';
+            button.value = 'START';
+        }
     }
 
     return {

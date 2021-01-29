@@ -50,6 +50,10 @@ const Timer = () => {
     }
 
     const setTimeForPomodoroMode = () => {
+        const red = "rgb(219, 82, 77)";
+        document.body.style.backgroundColor = red;
+        document.getElementById('time').querySelectorAll('input[type=button]')[0].style.color = red;
+        document.getElementById('time').querySelectorAll('input[type=button]')[0].style.boxShadow = 'rgb(235 235 235) 0px 6px 0px';
         // min = 25;
         // sec = 0;
         min = 0;
@@ -57,6 +61,9 @@ const Timer = () => {
     }
 
     const setTimeForShortMode = () => {
+        const green = "rgb(70, 142, 145)";
+        document.body.style.backgroundColor = green;
+        document.getElementById('time').querySelectorAll('input[type=button]')[0].style.color = green;
         // min = 5;
         // sec = 0;
         min = 0;
@@ -64,6 +71,9 @@ const Timer = () => {
     }
 
     const setTimeForLongMode = () => {
+        const blue = "rgb(67, 126, 168)";
+        document.body.style.background = blue;
+        document.getElementById('time').querySelectorAll('input[type=button]')[0].style.color = blue;
         // min = 15;
         // sec = 0;
         min = 0;
@@ -77,7 +87,7 @@ const Timer = () => {
     }
 
     const applyTime = () => {
-        const timeString = numFormat(min) + ' : ' + numFormat(sec);
+        const timeString = numFormat(min) + ':' + numFormat(sec);
         document.getElementById('time').querySelector('h1').innerText = timeString;
     }
 
@@ -93,9 +103,9 @@ const Timer = () => {
     }
 
     const Timer = (state) => {
-        if (state === 'start')
+        if (state === 'START')
             stopTimer();
-        else if (state === 'stop')
+        else if (state === 'STOP')
             timerId = setInterval(startTimer, 1000);
     }
 
