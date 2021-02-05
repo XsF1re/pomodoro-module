@@ -1,64 +1,6 @@
-const modal = document.querySelector(".modal");
+import { submitButton, activateModal } from "./modal";
 
-const btn = document.getElementById("modal__open-btn");
-
-const span = document.getElementsByClassName("setting__remove-btn")[0];
-
-const volume = document.querySelector(".volume__range");
-
-const volumeDisplay = document.querySelector(".volume__display");
-
-const submitButton = document.querySelector(".setting__submit-btn");
-
-const mySetting = [];
-
-class Setting {
-  constructor(
-    pomodoro,
-    shortBreak,
-    longBreak,
-    didAutoStart,
-    volume,
-    longBreakInterval
-  ) {
-    this.pomodoro = pomodoro;
-    this.shortBreak = shortBreak;
-    this.longBreak = longBreak;
-    this.didAutoStart = didAutoStart;
-    this.volume = volume;
-    this.longBreakInterval = longBreakInterval;
-  }
-}
-
-const clickListeners = () => {
-  btn.addEventListener("click", openModal, false);
-
-  span.addEventListener("click", closeModal, false);
-
-  window.addEventListener(
-    "click",
-    (event) => {
-      if (event.target == modal) {
-        modal.style.display = "none";
-      }
-    },
-    false
-  );
-
-  submitButton.addEventListener("click", getSetting, false);
-  submitButton.addEventListener("click", closeModal, false);
-}
-
-function closeModal() {
-  modal.style.display = "none";
-}
-
-function openModal() {
-  modal.style.display = "block";
-}
-
-// 밸류를 다 읽어와야함
-const getSettings = () => {
+function getSetting() {
   const pomodoro = document.querySelector(".time__pomodoro").value;
   const shortBreak = document.querySelector(".time__shortBreak").value;
   const longBreak = document.querySelector(".time__longBreak").value;
@@ -66,6 +8,15 @@ const getSettings = () => {
   const volume = document.querySelector(".volume__range").value;
   const longBreakInterval = document.querySelector(".longBreakInterval__number")
     .value;
+
+  // console.log({
+  //   pomodoro,
+  //   shortBreak,
+  //   longBreak,
+  //   didAutoStart,
+  //   volume,
+  //   longBreakInterval,
+  // });
 
   return {
     pomodoro,
@@ -77,13 +28,55 @@ const getSettings = () => {
   };
 }
 
-volume.oninput = function () {
-  volumeDisplay.innerHTML = this.value;
-};
-
-volumeDisplay.innerHTML = volume.value;
-
-const mode = getSettings();
-export {
-  mode
+/* submit Btn 클릭 시 getSetting 함수 호출 */
+function sendSettingValue() {
+  submitButton.addEventListener("click", getSetting, false);
 }
+
+const volumeRange = document.getElementById("vr");
+const volumeDisplay = document.getElementById("vd");
+
+/* 반응형 volume input range 구현 */
+function responsiveVolumeValue() {
+  volumeRange.addEventListener("input", changeVolumeValue, false);
+  volumeDisplay.innerText = volumeRange.value;
+
+  function changeVolumeValue() {
+    volumeDisplay.innerText = volumeRange.value;
+  }
+}
+
+class Setting {
+  constructor() {}
+
+  start() {
+    activateModal();
+    sendSettingValue();
+    responsiveVolumeValue();
+  }
+  get() {
+    return getSetting();
+  }
+}
+
+export default Setting;
+
+// const mySetting = [];
+
+// class Setting {
+//   constructor(
+//     pomodoro,
+//     shortBreak,
+//     longBreak,
+//     didAutoStart,
+//     volume,
+//     longBreakInterval
+//   ) {
+//     this.pomodoro = pomodoro;
+//     this.shortBreak = shortBreak;
+//     this.longBreak = longBreak;
+//     this.didAutoStart = didAutoStart;
+//     this.volume = volume;
+//     this.longBreakInterval = longBreakInterval;
+//   }
+// }

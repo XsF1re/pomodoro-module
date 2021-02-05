@@ -1,5 +1,6 @@
 import { display } from './display.js';
 import endSound from './sounds/alertSound.mp3';
+import Setting from "./setting";
 
 const Timer = () => {
     let mode;
@@ -14,6 +15,20 @@ const Timer = () => {
     //Preference Value
     const autoStartNextRound = true;
     const longBreakInterval = 2;
+
+    const listenSettings = () => {
+        const submitButton = document.getElementsByClassName("footer__submit-btn")[0];
+        submitButton.addEventListener("click", importSettings, false);
+    }
+
+    const importSettings = () => {
+        const pomodoroSetting = new Setting();
+        console.log(pomodoroSetting.get().pomodoro);
+        setTimeForPomodoroMode(pomodoroSetting.get().pomodoro, 0);
+        // setTimeForShortMode(pomodoroSetting.get().shortBreak, 0);
+        // setTimeForLongMode(pomodoroSetting.get().longbreak, 0);
+        applyTime();
+    }
 
     const debugStatus = () => {
         console.log("autoStartNextRound: " + autoStartNextRound + ", longBreakInterval: " + longBreakInterval);
@@ -49,35 +64,29 @@ const Timer = () => {
         applyTime();
     }
 
-    const setTimeForPomodoroMode = () => {
+    const setTimeForPomodoroMode = (m=25, s=0) => {
         const red = "rgb(219, 82, 77)";
         document.body.style.backgroundColor = red;
         document.getElementById('time').querySelectorAll('input[type=button]')[0].style.color = red;
         document.getElementById('time').querySelectorAll('input[type=button]')[0].style.boxShadow = 'rgb(235 235 235) 0px 6px 0px';
-        // min = 25;
-        // sec = 0;
-        min = 0;
-        sec = 2;
+        min = m;
+        sec = s;
     }
 
-    const setTimeForShortMode = () => {
+    const setTimeForShortMode = (m=5, s=0) => {
         const green = "rgb(70, 142, 145)";
         document.body.style.backgroundColor = green;
         document.getElementById('time').querySelectorAll('input[type=button]')[0].style.color = green;
-        // min = 5;
-        // sec = 0;
-        min = 0;
-        sec = 3;
+        min = m;
+        sec = s;
     }
 
-    const setTimeForLongMode = () => {
+    const setTimeForLongMode = (m=15, s=0) => {
         const blue = "rgb(67, 126, 168)";
         document.body.style.background = blue;
         document.getElementById('time').querySelectorAll('input[type=button]')[0].style.color = blue;
-        // min = 15;
-        // sec = 0;
-        min = 0;
-        sec = 4;
+        min = m;
+        sec = s;
     }
 
     const numFormat = (num) => {
@@ -203,6 +212,7 @@ const Timer = () => {
     }
 
     return {
+        listenSettings,
         setSingleTimer,
         isSingleTimer,
         initPomodoroRunCnt,
